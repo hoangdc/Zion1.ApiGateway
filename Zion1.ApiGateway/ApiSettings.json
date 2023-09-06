@@ -1,0 +1,54 @@
+{
+  "Routes": [
+    //Idp Api
+    {
+      "UpstreamPathTemplate": "/api/token?username={username}&userType={userType}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/auth/token?username={username}&userType={userType}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7005
+        }
+      ]
+    },
+    //Client API
+    {
+      //Upstream config
+      "UpstreamPathTemplate": "/api/client",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      //Downstream config
+      "DownstreamPathTemplate": "/Zion1.api/api/client",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "hoangdinh.homeip.net",
+          "Port": 443
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      //Upstream config
+      "UpStreamPathTemplate": "/api/client/{clientid}",
+      "UpstreamHttpMethod": [ "Put", "Delete" ],
+      //Downstream config
+      "DownstreamPathTemplate": "/Zion1.api/api/client/{clientid}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "hoangdinh.homeip.net",
+          "Port": 443
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    //Base Url of Api Gateway
+    "BaseUrl": "http://localhost:5049"
+  }
+}
